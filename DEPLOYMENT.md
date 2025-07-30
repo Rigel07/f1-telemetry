@@ -24,7 +24,7 @@ F1 Telemetry Viewer is a React + Flask application for analyzing F1 race replay 
 2. Create a new Web Service from your GitHub repo
 3. Configure:
    - **Build Command**: `cd listener && pip install -r ../requirements.txt`
-   - **Start Command**: `cd listener && gunicorn replay_server:app`
+   - **Start Command**: `cd listener && python replay_server.py`
    - **Environment**: Python 3.11+
 
 ### 2. Frontend Deployment (Vercel)
@@ -57,7 +57,6 @@ listener/
 │   ├── your-race-2.sqlite3
 │   └── ...
 ├── replay_server.py      # Main Flask backend
-├── gunicorn.conf.py      # Production server config
 └── tutorial_status.json  # Auto-created
 ```
 
