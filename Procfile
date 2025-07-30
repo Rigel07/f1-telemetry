@@ -1,1 +1,1 @@
-web: cd listener && gunicorn replay_server:app
+web: cd listener && gunicorn test_server:app

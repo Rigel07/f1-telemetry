@@ -2,9 +2,22 @@ import json
 import sqlite3
 import os
 import urllib.parse
+import sys
 from flask import Flask, jsonify, request
 from flask_cors import CORS
-from f1_2020_telemetry.packets import unpack_udp_packet
+
+print("Starting F1 Telemetry Server...")
+print("Python version:", sys.version)
+print("Current working directory:", os.getcwd())
+
+try:
+    from f1_2020_telemetry.packets import unpack_udp_packet
+    print("Successfully imported f1_2020_telemetry")
+except ImportError as e:
+    print(f"Warning: Could not import f1_2020_telemetry: {e}")
+    # Define a dummy function to prevent crashes
+    def unpack_udp_packet(*args, **kwargs):
+        return None
 
 app = Flask(__name__)
 CORS(app)  # Enable CORS for frontend communication
@@ -26,6 +39,19 @@ else:
     REPLAYS_FOLDER = LOCAL_REPLAYS
     os.makedirs(REPLAYS_FOLDER, exist_ok=True)
     print(f"Created and using replays folder: {REPLAYS_FOLDER}")
+
+@app.route('/')
+def health():
+    return jsonify({
+        "message": "F1 Telemetry Server is running!",
+        "status": "healthy",
+        "replays_folder": REPLAYS_FOLDER,
+        "replays_exist": os.path.exists(REPLAYS_FOLDER)
+    })
+
+@app.route('/api/health')
+def api_health():
+    return jsonify({"status": "healthy", "service": "f1-telemetry"})
 
 @app.route('/api/replays', methods=['GET'])
 def get_available_replays():
@@ -419,5 +445,10 @@ def complete_tutorial():
         return jsonify({'error': str(e)}), 500
 
 if __name__ == '__main__':
-    port = int(os.environ.get('PORT', 5000))
-    app.run(host='0.0.0.0', port=port, debug=False)
+    try:
+        port = int(os.environ.get('PORT', 5000))
+        print(f"Starting server on port {port}")
+        app.run(host='0.0.0.0', port=port, debug=False)
+    except Exception as e:
+        print(f"Error starting server: {e}")
+        sys.exit(1)
