@@ -1,1 +1,1 @@
-web: /bin/sh -c "cd listener && python replay_server.py"
+web: cd listener && python replay_server.py
