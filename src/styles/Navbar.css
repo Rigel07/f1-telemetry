@@ -1,0 +1,47 @@
+nav {
+    background-color: #e10600;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.navbar-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.home-button {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.home-button:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: white;
+}
+
+.nav-links {
+    display: flex;
+    gap: 20px;
+}
+
+.link {
+    text-decoration: none;
+    color: white;
+    font-size: 18px;
+    border-bottom: 2px solid transparent;
+    transition: border-bottom 0.2s ease;
+    font-weight: 500;
+}
+
+.link:hover {
+    border-bottom: 2px solid white;
+}
