@@ -1,1 +1,1 @@
-web: cd listener && python -u replay_server.py
+web: cd listener && python -u simple_server.py
