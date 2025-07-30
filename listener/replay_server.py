@@ -18,9 +18,14 @@ PARENT_REPLAYS = os.path.join(os.path.dirname(SCRIPT_DIR), "replays")
 if os.path.exists(LOCAL_REPLAYS):
     REPLAYS_FOLDER = LOCAL_REPLAYS
     print(f"Using local replays folder: {REPLAYS_FOLDER}")
-else:
+elif os.path.exists(PARENT_REPLAYS):
     REPLAYS_FOLDER = PARENT_REPLAYS
     print(f"Using parent replays folder: {REPLAYS_FOLDER}")
+else:
+    # Create local replays folder if neither exists
+    REPLAYS_FOLDER = LOCAL_REPLAYS
+    os.makedirs(REPLAYS_FOLDER, exist_ok=True)
+    print(f"Created and using replays folder: {REPLAYS_FOLDER}")
 
 @app.route('/api/replays', methods=['GET'])
 def get_available_replays():
@@ -414,4 +419,5 @@ def complete_tutorial():
         return jsonify({'error': str(e)}), 500
 
 if __name__ == '__main__':
-    app.run(debug=False, port=5000)
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port, debug=False)
