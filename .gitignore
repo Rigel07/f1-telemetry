@@ -29,6 +29,12 @@ venv.bak/
 # Tutorial tracking (backend generated)
 listener/tutorial_status.json
 
+# Replay files (too large for GitHub)
+listener/replays/*.sqlite3
+listener/replays/*.db
+replays/*.sqlite3
+replays/*.db
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
